@@ -7,6 +7,7 @@ const form = document.getElementById("task-form");
 const input = document.getElementById("task-input");
 const list = document.getElementById("task-list");
 const taskCount = document.getElementById("task-count");
+const clearButton = document.getElementById("clear-completed-button");
 
 let tasks = [];
 
@@ -39,6 +40,8 @@ function render() {
     taskCount.textContent = `Total tasks: ${tasks.length}, Remaining: ${remainingTasks.length}`;
 }
 
+
+
 // Load tasks from localStorage on page load
 window.addEventListener("load", function () {
     const savedTasks = localStorage.getItem("tasks");
@@ -60,3 +63,9 @@ form.addEventListener("submit", function (event) {
     input.value = "";
 });
 
+
+clearButton.addEventListener("click", function () {
+    const remainingTasks = tasks.filter((task) => !task.done);
+    tasks = remainingTasks;
+    render();
+});
