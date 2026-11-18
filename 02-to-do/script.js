@@ -15,6 +15,15 @@ function render() {
         const listItem = document.createElement("li");
         listItem.textContent = task.text;
         list.appendChild(listItem);
+        if (task.done) {
+                listItem.classList.add("done");
+            } else {
+                listItem.classList.remove("done");
+            }
+        listItem.addEventListener("click", function () {
+            task.done = !task.done;
+            render();
+        });
     });
 }
 
