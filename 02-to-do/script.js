@@ -6,6 +6,7 @@ console.log("Connected");
 const form = document.getElementById("task-form");
 const input = document.getElementById("task-input");
 const list = document.getElementById("task-list");
+const taskCount = document.getElementById("task-count");
 
 let tasks = [];
 
@@ -34,6 +35,8 @@ function render() {
         });
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    const remainingTasks = tasks.filter((task) => !task.done);
+    taskCount.textContent = `Total tasks: ${tasks.length}, Remaining: ${remainingTasks.length}`;
 }
 
 // Load tasks from localStorage on page load
@@ -56,7 +59,4 @@ form.addEventListener("submit", function (event) {
     render();
     input.value = "";
 });
-
-
-
 
