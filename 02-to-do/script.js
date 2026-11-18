@@ -14,5 +14,12 @@ form.addEventListener("submit", function (event) {
         return;
     }
     console.log("Task added:", taskText);
+    const listItem = document.createElement("li");
+    listItem.textContent = taskText;
     input.value = "";
-})
+    list.appendChild(listItem);
+});
+
+
+
+
