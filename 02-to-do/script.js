@@ -33,7 +33,17 @@ function render() {
             render();
         });
     });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+// Load tasks from localStorage on page load
+window.addEventListener("load", function () {
+    const savedTasks = localStorage.getItem("tasks");
+    if (savedTasks) {
+        tasks = JSON.parse(savedTasks);
+    }
+    render();
+});
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
