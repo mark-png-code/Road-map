@@ -13,8 +13,11 @@ function render() {
     list.innerHTML = "";
     tasks.forEach(function (task) {
         const listItem = document.createElement("li");
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "X";
         listItem.textContent = task.text;
         list.appendChild(listItem);
+        listItem.appendChild(deleteButton);
         if (task.done) {
                 listItem.classList.add("done");
             } else {
@@ -22,6 +25,11 @@ function render() {
             }
         listItem.addEventListener("click", function () {
             task.done = !task.done;
+            render();
+        });
+        deleteButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            tasks = tasks.filter((t) => t !== task);
             render();
         });
     });
