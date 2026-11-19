@@ -40,9 +40,16 @@ function render() {
             editInput.value = task.text;
             listItem.appendChild(editInput);
             editInput.focus();
+            editInput.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
             editInput.addEventListener("keydown", function (event) {
                 if (event.key === "Enter") {
-                    task.text = editInput.value.trim();
+                    const newText = editInput.value.trim();
+                    if (newText === "") {
+                        return;
+                    }
+                    task.text = newText;
                     editingTask = null;
                     render();
                 }
