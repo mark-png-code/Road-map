@@ -15,6 +15,7 @@ const filterCompletedButton = document.getElementById("filter-completed");
 
 let tasks = [];
 let filter = "all"; // Possible values: "all", "active", "completed"
+let editingTask = null; // Variable to track the task being edited
 
 function render() {
     list.innerHTML = "";
@@ -29,11 +30,33 @@ function render() {
     }
     visibleTasks.forEach(function (task) {
         const listItem = document.createElement("li");
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "X";
-        listItem.textContent = task.text;
         list.appendChild(listItem);
+        const deleteButton = document.createElement("button");
+        const editButton = document.createElement("button");
+        deleteButton.textContent = "X";
+        editButton.textContent = "Edit";
+        if (editingTask === task) {
+            const editInput = document.createElement("input");
+            editInput.value = task.text;
+            listItem.appendChild(editInput);
+            editInput.focus();
+            editInput.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    task.text = editInput.value.trim();
+                    editingTask = null;
+                    render();
+                }
+                else if (event.key === "Escape") {
+                    editingTask = null;
+                    render();
+                }
+            });
+        }
+        else {
+            listItem.textContent = task.text;
+        }
         listItem.appendChild(deleteButton);
+        listItem.appendChild(editButton);
         if (task.done) {
                 listItem.classList.add("done");
             } else {
@@ -46,6 +69,11 @@ function render() {
         deleteButton.addEventListener("click", function (event) {
             event.stopPropagation();
             tasks = tasks.filter((t) => t !== task);
+            render();
+        });
+        editButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            editingTask = task;
             render();
         });
     });
