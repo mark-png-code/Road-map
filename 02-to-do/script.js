@@ -9,13 +9,25 @@ const list = document.getElementById("task-list");
 const taskCount = document.getElementById("task-count");
 const clearButton = document.getElementById("clear-completed-button");
 const emptyMessage = document.getElementById("empty-list-message");
+const filterAllButton = document.getElementById("filter-all");
+const filterActiveButton = document.getElementById("filter-active");
+const filterCompletedButton = document.getElementById("filter-completed");
 
 let tasks = [];
+let filter = "all"; // Possible values: "all", "active", "completed"
 
 function render() {
     list.innerHTML = "";
     emptyMessage.hidden = tasks.length > 0;
-    tasks.forEach(function (task) {
+    let visibleTasks;
+    if (filter === "all") {
+        visibleTasks = tasks;
+    } else if (filter === "active") {
+        visibleTasks = tasks.filter((task) => !task.done);
+    } else if (filter === "completed") {
+        visibleTasks = tasks.filter((task) => task.done);
+    }
+    visibleTasks.forEach(function (task) {
         const listItem = document.createElement("li");
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
@@ -40,6 +52,9 @@ function render() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     const remainingTasks = tasks.filter((task) => !task.done);
     taskCount.textContent = `Total tasks: ${tasks.length}, Remaining: ${remainingTasks.length}`;
+    filterAllButton.classList.toggle("active", filter === "all");
+    filterActiveButton.classList.toggle("active", filter === "active");
+    filterCompletedButton.classList.toggle("active", filter === "completed");
 }
 
 
@@ -71,3 +86,21 @@ clearButton.addEventListener("click", function () {
     tasks = remainingTasks;
     render();
 });
+
+filterAllButton.addEventListener("click", function () {
+    filter = "all";
+    render();
+});
+
+filterActiveButton.addEventListener("click", function () {
+    filter = "active";
+    render();
+});
+
+filterCompletedButton.addEventListener("click", function () {
+    filter = "completed";
+    render();
+});
+
+
+

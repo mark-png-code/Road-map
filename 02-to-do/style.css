@@ -52,3 +52,8 @@ button:hover {
 li {
     cursor: pointer;
 }
+
+.active {
+    background: var(--accent);
+    color: var(--card);
+}

@@ -13,7 +13,12 @@
             <input type="text" id="task-input" placeholder="Enter a new task" autoComplete="off" autoFocus>
             <button id="add-task-button" type="submit">Add Task</button>
         </form>
-        <p id="empty-list-message">Nothing to do!</p>
+        <p id="empty-list-message" hidden>Nothing to do!</p>
+        <section id="filter-buttons">
+            <button id="filter-all" class="filter-button active">All</button>
+            <button id="filter-active" class="filter-button">Active</button>
+            <button id="filter-completed" class="filter-button">Completed</button>
+        </section>
         <ul id="task-list"></ul>
         <p id="task-count">All done</p>
         <button id="clear-completed-button">Clear Completed</button>
