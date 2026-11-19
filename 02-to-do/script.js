@@ -65,10 +65,8 @@ function render() {
         listItem.appendChild(deleteButton);
         listItem.appendChild(editButton);
         if (task.done) {
-                listItem.classList.add("done");
-            } else {
-                listItem.classList.remove("done");
-            }
+            listItem.classList.add("done");
+        }
         listItem.addEventListener("click", function () {
             task.done = !task.done;
             render();
