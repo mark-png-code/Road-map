@@ -8,11 +8,13 @@ const input = document.getElementById("task-input");
 const list = document.getElementById("task-list");
 const taskCount = document.getElementById("task-count");
 const clearButton = document.getElementById("clear-completed-button");
+const emptyMessage = document.getElementById("empty-list-message");
 
 let tasks = [];
 
 function render() {
     list.innerHTML = "";
+    emptyMessage.hidden = tasks.length > 0;
     tasks.forEach(function (task) {
         const listItem = document.createElement("li");
         const deleteButton = document.createElement("button");
